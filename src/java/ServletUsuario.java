@@ -25,7 +25,32 @@ public class ServletUsuario extends HttpServlet {
                user.setUsuario_id(id);
                //ELIMINO USAURIO
                user.delete();
-               //REDIRECCIONO A INDEX
+               //REDIRECCIONO A INDEX DESPUES DE ELIMINAR
+               response.sendRedirect("index.jsp");
+               
+           }else if(request.getParameter("guardar")!=null){
+               String nombre=request.getParameter("nombre");
+               String apepat=request.getParameter("apepat");
+               String telefono=request.getParameter("telefono");
+               Usuario user=new Usuario();
+               user.setNombre(nombre);
+               user.setApepat(apepat);
+               user.setTelefono(telefono);
+               user.save();
+               //REDIRECCIONAR A INDEX.JSP DeSPUES DE GUARDAR
+               response.sendRedirect("index.jsp");
+               
+           }else if(request.getParameter("editar")!=null){
+               int usuario_id=Integer.parseInt(request.getParameter("usuario_id"));
+               String nombre=request.getParameter("nombre");
+               String apepat=request.getParameter("apepat");
+               String telefono=request.getParameter("telefono");
+               Usuario user=new Usuario();
+               user.setUsuario_id(usuario_id);
+               user.setNombre(nombre);
+               user.setApepat(apepat);
+               user.setTelefono(telefono);
+               user.update();
                response.sendRedirect("index.jsp");
                
            }
