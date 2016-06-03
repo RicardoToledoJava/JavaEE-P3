@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import negocio.Usuario;
 
 public class ServletUsuario extends HttpServlet {
 
@@ -13,9 +14,20 @@ public class ServletUsuario extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            //SI EL PARAMETRO ES DISTINTO DE NULL
            if(request.getParameter("eliminar")!=null){
-               String id=request.getParameter("eliminar");
+               //RECIBO PARAMETRO LO CONVIERTO EN ENTERO
+               int id=Integer.parseInt(request.getParameter("eliminar"));
                out.println("Eliminar ID:"+id);
+               //CREO UN OBJETO USARIO
+               Usuario user=new Usuario();
+               //ASIGNO LA ID
+               user.setUsuario_id(id);
+               //ELIMINO USAURIO
+               user.delete();
+               //REDIRECCIONO A INDEX
+               response.sendRedirect("index.jsp");
+               
            }
         }
     }
